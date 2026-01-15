@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 import { site } from "@/lib/site";
 
@@ -80,17 +81,26 @@ export default function AboutPage() {
                 <span className="text-[11px] font-bold uppercase tracking-wider text-primary">
                   Web Development
                 </span>
-                <p className="mt-2 text-text-muted">
-                  WordPress, PHP, WooCommerce, HTML, CSS, JavaScript, MySQL
-                </p>
+                <div className="mt-3 flex flex-wrap items-center gap-2">
+                  <span className="rounded-full bg-primary/20 border border-primary/30 px-3 py-1 text-xs text-primary">WordPress</span>
+                  <span className="rounded-full bg-primary/20 border border-primary/30 px-3 py-1 text-xs text-primary">PHP</span>
+                  <span className="rounded-full bg-primary/20 border border-primary/30 px-3 py-1 text-xs text-primary">JavaScript</span>
+                  <span className="rounded-full bg-primary/20 border border-primary/30 px-3 py-1 text-xs text-primary">React.js</span>
+                  <span className="rounded-full bg-primary/20 border border-primary/30 px-3 py-1 text-xs text-primary">MySQL</span>
+                  <span className="rounded-full bg-primary/20 border border-primary/30 px-3 py-1 text-xs text-primary">WooCommerce</span>
+                  <span className="rounded-full bg-primary/20 border border-primary/30 px-3 py-1 text-xs text-primary">Next.js</span>
+                </div>
               </div>
               <div className="rounded-2xl border border-white/5 bg-card-dark p-6 shadow-xl">
                 <span className="text-[11px] font-bold uppercase tracking-wider text-primary">
                   Creative Design &amp; UI
                 </span>
-                <p className="mt-2 text-text-muted">
-                  Figma, Photoshop, Illustrator, Elementor, Corel Draw
-                </p>
+                <div className="mt-3 flex flex-wrap items-center gap-2">
+                  <span className="rounded-full bg-primary/20 border border-primary/30 px-3 py-1 text-xs text-primary">Figma</span>
+                  <span className="rounded-full bg-primary/20 border border-primary/30 px-3 py-1 text-xs text-primary">Photoshop</span>
+                  <span className="rounded-full bg-primary/20 border border-primary/30 px-3 py-1 text-xs text-primary">Illustrator</span>
+                  <span className="rounded-full bg-primary/20 border border-primary/30 px-3 py-1 text-xs text-primary">Elementor</span>
+                </div>
               </div>
               <div className="rounded-2xl border border-white/5 bg-card-dark p-6 shadow-xl">
                 <span className="text-[11px] font-bold uppercase tracking-wider text-primary">
@@ -145,9 +155,19 @@ export default function AboutPage() {
                   <h4 className="mt-1 text-lg font-bold leading-tight text-white">
                     Web &amp; Creative Projects
                   </h4>
-                  <p className="text-sm font-medium text-text-muted">
-                    Ghana, USA, Togo
-                  </p>
+                  <div className="mt-2 flex flex-wrap gap-2 text-sm text-text-muted">
+                    <span>Marina Mall - Spintex</span>
+                    <span>•</span>
+                    <Link href="/projects/impact-logistics" className="text-primary hover:underline">Impact Logistics</Link>
+                    <span>•</span>
+                    <span>JIT - Accra</span>
+                    <span>•</span>
+                    <Link href="/projects/talk2me-foundation" className="text-primary hover:underline">Talk2me Foundation</Link>
+                    <span>•</span>
+                    <Link href="/projects/ventech-gadgets" className="text-primary hover:underline">Ventech Gadgets</Link>
+                    <span>•</span>
+                    <Link href="/projects/juicelux-international" className="text-primary hover:underline">JuiceLux International</Link>
+                  </div>
                 </div>
               </div>
             </div>

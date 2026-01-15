@@ -31,7 +31,7 @@ export default function HomePage() {
               rel="noopener noreferrer"
               className="rounded-lg border border-primary/40 px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-primary"
             >
-              CV
+              Creative
             </a>
             <span className="material-symbols-outlined text-white">menu</span>
           </div>
@@ -96,7 +96,7 @@ export default function HomePage() {
             <div className="mt-6">
               <Link
                 href="/advisor"
-                className="flex items-center justify-center gap-2 rounded-full border-2 border-primary/50 bg-transparent px-6 py-3 text-sm font-bold text-primary transition-all hover:bg-primary/10 hover:border-primary"
+                className="shiny-border-button flex items-center justify-center gap-2 rounded-full bg-transparent px-6 py-3 text-sm font-bold text-primary transition-all hover:bg-primary/10"
               >
                 <span className="material-symbols-outlined">lightbulb</span>
                 Not sure what you need? Get project guidance
@@ -134,22 +134,15 @@ export default function HomePage() {
                 Node.js, and Next.js, focusing on performance optimization,
                 user experience, and scalable development.
               </p>
-              <div className="mt-3 flex items-center gap-3">
-                <div className="flex size-8 items-center justify-center rounded-lg bg-primary/20 border border-primary/30">
-                  <span className="material-symbols-outlined text-primary text-lg">
-                    code
-                  </span>
-                </div>
-                <div className="flex size-8 items-center justify-center rounded-lg bg-primary/20 border border-primary/30">
-                  <span className="material-symbols-outlined text-primary text-lg">
-                    data_object
-                  </span>
-                </div>
-                <div className="flex size-8 items-center justify-center rounded-lg bg-primary/20 border border-primary/30">
-                  <span className="material-symbols-outlined text-primary text-lg">
-                    storage
-                  </span>
-                </div>
+              <div className="mt-3 flex flex-wrap items-center gap-2">
+                <span className="text-xs font-medium text-slate-300">Skills:</span>
+                <span className="rounded-full bg-primary/20 border border-primary/30 px-3 py-1 text-xs text-primary">WordPress</span>
+                <span className="rounded-full bg-primary/20 border border-primary/30 px-3 py-1 text-xs text-primary">PHP</span>
+                <span className="rounded-full bg-primary/20 border border-primary/30 px-3 py-1 text-xs text-primary">JavaScript</span>
+                <span className="rounded-full bg-primary/20 border border-primary/30 px-3 py-1 text-xs text-primary">React.js</span>
+                <span className="rounded-full bg-primary/20 border border-primary/30 px-3 py-1 text-xs text-primary">MySQL</span>
+                <span className="rounded-full bg-primary/20 border border-primary/30 px-3 py-1 text-xs text-primary">WooCommerce</span>
+                <span className="rounded-full bg-primary/20 border border-primary/30 px-3 py-1 text-xs text-primary">Next.js</span>
               </div>
             </div>
           </div>
@@ -167,22 +160,12 @@ export default function HomePage() {
                 Figma, Photoshop, Illustrator, and Elementor, ensuring strong
                 brand consistency across all digital touchpoints.
               </p>
-              <div className="mt-3 flex items-center gap-3">
-                <div className="flex size-8 items-center justify-center rounded-lg bg-primary/20 border border-primary/30">
-                  <span className="material-symbols-outlined text-primary text-lg">
-                    palette
-                  </span>
-                </div>
-                <div className="flex size-8 items-center justify-center rounded-lg bg-primary/20 border border-primary/30">
-                  <span className="material-symbols-outlined text-primary text-lg">
-                    brush
-                  </span>
-                </div>
-                <div className="flex size-8 items-center justify-center rounded-lg bg-primary/20 border border-primary/30">
-                  <span className="material-symbols-outlined text-primary text-lg">
-                    auto_awesome
-                  </span>
-                </div>
+              <div className="mt-3 flex flex-wrap items-center gap-2">
+                <span className="text-xs font-medium text-slate-300">Tools:</span>
+                <span className="rounded-full bg-primary/20 border border-primary/30 px-3 py-1 text-xs text-primary">Figma</span>
+                <span className="rounded-full bg-primary/20 border border-primary/30 px-3 py-1 text-xs text-primary">Photoshop</span>
+                <span className="rounded-full bg-primary/20 border border-primary/30 px-3 py-1 text-xs text-primary">Illustrator</span>
+                <span className="rounded-full bg-primary/20 border border-primary/30 px-3 py-1 text-xs text-primary">Elementor</span>
               </div>
             </div>
           </div>
