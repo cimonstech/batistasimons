@@ -123,18 +123,21 @@ export default function HomePage() {
             <div className="relative flex items-start justify-between gap-4">
               <div className="flex-1 pr-4">
                 <h1 className="text-[1.8rem] md:text-4xl font-bold leading-[1.1] tracking-tight text-white">
-                  I build and design{" "}
-                  <span className="text-primary">digital experiences</span> that
-                  work.
+                  <span className="inline md:block">I build and design</span>{" "}
+                  <span className="inline md:block text-primary">digital experiences</span>{" "}
+                  <span className="inline md:block">that work.</span>
                 </h1>
+                <p className="mt-3 hidden md:block text-base font-normal text-slate-400">
+                  {site.subheadline}
+                </p>
               </div>
               <div className="shrink-0 relative z-20 flex-shrink-0 profile-image-ring">
-                <div className="size-[115px] md:size-48 rounded-full border-2 border-primary/30 bg-surface-dark p-1 overflow-hidden">
+                <div className="size-[115px] md:size-[250px] rounded-full border-2 border-primary/30 bg-surface-dark p-1 overflow-hidden">
                   <Image
                     alt="Batista Simons"
                     src="/1740128683157.jpg"
-                    width={192}
-                    height={192}
+                    width={250}
+                    height={250}
                     className="w-full h-full object-cover rounded-full filter grayscale hover:grayscale-0 transition-all duration-300"
                     priority
                   />
@@ -144,12 +147,6 @@ export default function HomePage() {
             
             <div className="mt-3 md:hidden">
               <p className="w-full text-sm font-normal text-slate-400">
-                {site.subheadline}
-              </p>
-            </div>
-            
-            <div className="mt-3 hidden md:block">
-              <p className="w-full md:max-w-sm text-base font-normal text-slate-400">
                 {site.subheadline}
               </p>
             </div>

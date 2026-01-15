@@ -141,16 +141,16 @@ export default function AboutPage() {
             </h3>
             <div className="timeline-line relative space-y-10 pl-8">
               <div className="relative">
-                <div className="absolute -left-[31px] top-1.5 size-4 rounded-full bg-primary border-4 border-background-dark shadow-[0_0_10px_rgba(51,119,255,0.4)]"></div>
+                <div className="absolute -left-[31px] top-1.5 size-4 rounded-full bg-primary/40 border-4 border-background-dark"></div>
                 <div>
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-primary">
-                    Present
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-text-muted">
+                    Remote
                   </span>
                   <h4 className="mt-1 text-lg font-bold leading-tight text-white">
-                    Web Development &amp; IT Support
+                    Frontend Developer
                   </h4>
                   <p className="text-sm font-medium text-text-muted">
-                    Pesben Group Ltd.
+                    Vinetrix IT Solutions
                   </p>
                 </div>
               </div>
@@ -164,7 +164,14 @@ export default function AboutPage() {
                     Content &amp; Creative Design
                   </h4>
                   <p className="text-sm font-medium text-text-muted">
-                    STEP
+                    <Link 
+                      href="https://www.linkedin.com/company/sherisetech/" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-primary hover:underline"
+                    >
+                      STEP
+                    </Link>
                   </p>
                 </div>
               </div>
@@ -190,6 +197,20 @@ export default function AboutPage() {
                     <span>•</span>
                     <Link href="/projects/juicelux-international" className="text-primary hover:underline">JuiceLux International</Link>
                   </div>
+                </div>
+              </div>
+              <div className="relative">
+                <div className="absolute -left-[31px] top-1.5 size-4 rounded-full bg-primary/40 border-4 border-background-dark"></div>
+                <div>
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-text-muted">
+                    Past
+                  </span>
+                  <h4 className="mt-1 text-lg font-bold leading-tight text-white">
+                    Web Development &amp; IT Support
+                  </h4>
+                  <p className="text-sm font-medium text-text-muted">
+                    Pesben Group Ltd.
+                  </p>
                 </div>
               </div>
             </div>
