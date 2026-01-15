@@ -1,10 +1,32 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
 import { site } from "@/lib/site";
 
-export const metadata = {
-  title: "About",
+export const metadata: Metadata = {
+  title: "About Batista Simons | Web Developer & Creative Designer in Ghana",
+  description:
+    "Learn more about Batista Simons, a web developer and creative designer based in Accra, Ghana, with extensive experience in frontend development, backend development, WordPress, React.js, Next.js, PHP, MySQL, and modern visual design with Figma, Photoshop, and Illustrator.",
+  keywords: [
+    "about Batista Simons",
+    "web developer Accra",
+    "creative designer Ghana",
+    "frontend backend developer Ghana",
+    "WordPress expert Ghana",
+    "React.js developer Ghana",
+    "Next.js developer Ghana",
+    "PHP developer Ghana",
+    "UI/UX designer Ghana",
+    "Figma designer Ghana",
+    "web developer portfolio Ghana",
+  ],
+  openGraph: {
+    title: "About Batista Simons | Web Developer & Creative Designer in Ghana",
+    description:
+      "Learn more about Batista Simons, a web developer and creative designer based in Accra, Ghana, with experience in frontend, backend, and WordPress development.",
+    type: "profile",
+  },
 };
 
 export default function AboutPage() {

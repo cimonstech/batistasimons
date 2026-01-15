@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -5,11 +6,77 @@ import { ProjectCard } from "@/components/ProjectCard";
 import { projects } from "@/lib/projects";
 import { site } from "@/lib/site";
 
+export const metadata: Metadata = {
+  title: "Batista Simons | Web Developer & Creative Designer in Ghana",
+  description:
+    "Batista Simons is a web developer and creative designer in Ghana, building modern websites, e-commerce platforms, and digital solutions for businesses and organizations. Specializing in WordPress, PHP, JavaScript, React.js, MySQL, WooCommerce, and modern visual design with Figma, Photoshop, and Illustrator.",
+  keywords: [
+    "Batista Simons",
+    "web developer Ghana",
+    "creative designer Ghana",
+    "website developer Accra",
+    "WordPress developer Ghana",
+    "frontend developer Ghana",
+    "backend developer Ghana",
+    "software developer Ghana",
+    "e-commerce developer Ghana",
+    "React.js developer Ghana",
+    "Next.js developer Ghana",
+    "PHP developer Ghana",
+    "UI/UX designer Ghana",
+    "Figma designer Ghana",
+  ],
+  openGraph: {
+    title: "Batista Simons | Web Developer & Creative Designer in Ghana",
+    description:
+      "Web developer and creative designer in Ghana, building modern websites, e-commerce platforms, and digital solutions for businesses and organizations.",
+    type: "website",
+  },
+};
+
 export default function HomePage() {
   const featured = projects.filter((p) => p.featured).slice(0, 3);
 
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: "Batista Simons",
+    jobTitle: "Web Developer & Creative Designer",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Accra",
+      addressCountry: "GH",
+    },
+    email: site.email,
+    url: process.env.NEXT_PUBLIC_SITE_URL || "https://batistasimons.com",
+    sameAs: [site.linkedinUrl],
+    knowsAbout: [
+      "Web Development",
+      "WordPress",
+      "PHP",
+      "JavaScript",
+      "React.js",
+      "Next.js",
+      "MySQL",
+      "WooCommerce",
+      "UI/UX Design",
+      "Figma",
+      "Photoshop",
+      "Illustrator",
+    ],
+    alumniOf: {
+      "@type": "Organization",
+      name: "Web Development & Design",
+    },
+  };
+
   return (
-    <div className="pb-32">
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+      <div className="pb-32">
       <nav className="sticky top-0 z-50 w-full border-b border-border-dark/30 bg-background-dark/80 backdrop-blur-lg">
         <div className="mx-auto flex max-w-2xl items-center justify-between p-4">
           <div className="flex items-center gap-2">
@@ -39,33 +106,30 @@ export default function HomePage() {
       </nav>
 
       <header className="relative">
-        <div className="overflow-hidden rounded-b-[2.5rem] bg-background-dark px-4 pb-12 pt-6">
-          <div className="pointer-events-none absolute inset-0 overflow-hidden opacity-40">
-            <div className="absolute -left-24 -top-24 size-96 rounded-full bg-primary/30 blur-[100px]" />
-            <div className="absolute -right-24 top-1/2 size-80 rounded-full bg-accent/20 blur-[80px]" />
-          </div>
-
+        <div
+          className="mx-auto max-w-2xl px-4 pt-12"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle at 20% 50%, rgba(51, 119, 255, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(0, 210, 255, 0.1) 0%, transparent 50%)",
+          }}
+        >
           <div className="relative z-10 mx-auto flex max-w-2xl flex-col gap-4">
-            <div className="inline-flex w-fit items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3 py-1">
-              <span className="size-2 rounded-full bg-accent animate-pulse" />
-              <span className="text-[10px] font-bold uppercase tracking-widest text-accent">
+            <div className="flex items-center gap-2">
+              <span className="rounded-full bg-emerald-500/20 px-3 py-1 text-xs font-bold uppercase tracking-wider text-emerald-400">
                 Available for hire
               </span>
             </div>
 
             <div className="relative flex items-start justify-between gap-4">
               <div className="flex-1 pr-4">
-                <h1 className="text-4xl font-bold leading-[1.1] tracking-tight text-white">
+                <h1 className="text-[1.8rem] md:text-4xl font-bold leading-[1.1] tracking-tight text-white">
                   I build and design{" "}
                   <span className="text-primary">digital experiences</span> that
                   work.
                 </h1>
-                <p className="mt-3 w-full md:max-w-sm text-base font-normal text-slate-400 relative z-0">
-                  {site.subheadline}
-                </p>
               </div>
-              <div className="shrink-0 relative z-20 flex-shrink-0">
-                <div className="profile-image-ring size-48 rounded-full border-2 border-primary/30 bg-surface-dark p-1 overflow-hidden">
+              <div className="shrink-0 relative z-20 flex-shrink-0 profile-image-ring">
+                <div className="size-[115px] md:size-48 rounded-full border-2 border-primary/30 bg-surface-dark p-1 overflow-hidden">
                   <Image
                     alt="Batista Simons"
                     src="/1740128683157.jpg"
@@ -76,6 +140,18 @@ export default function HomePage() {
                   />
                 </div>
               </div>
+            </div>
+            
+            <div className="mt-3 md:hidden">
+              <p className="w-full text-sm font-normal text-slate-400">
+                {site.subheadline}
+              </p>
+            </div>
+            
+            <div className="mt-3 hidden md:block">
+              <p className="w-full md:max-w-sm text-base font-normal text-slate-400">
+                {site.subheadline}
+              </p>
             </div>
 
             <div className="mt-4 flex items-center gap-3">
@@ -179,62 +255,55 @@ export default function HomePage() {
                 Website Support &amp; SEO
               </h3>
               <p className="text-sm leading-relaxed text-slate-400">
-                I provide ongoing website support, content updates, bug fixes,
-                and SEO-friendly improvements to help businesses stay visible
-                and functional online.
+                Ongoing maintenance, security updates, performance optimization,
+                and SEO services to keep your website running smoothly and
+                ranking well in search engines.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="bg-background-dark py-12 overflow-hidden">
-        <div className="mx-auto max-w-2xl px-4">
-          <h2 className="mb-2 text-2xl font-bold tracking-tight text-white">
-            Featured Work
-          </h2>
-          <p className="text-sm text-slate-400">
-            Selected web development and creative design projects focused on
-            functionality, clarity, and strong visual identity.
-          </p>
-        </div>
-
-        <div className="mx-auto mt-8 max-w-2xl space-y-6 px-4">
-          {featured.map((project) => (
-            <ProjectCard key={project.slug} project={project} />
-          ))}
-
-          <div className="pt-2">
+      {featured.length > 0 && (
+        <section className="py-12">
+          <div className="mx-auto mb-6 flex max-w-2xl items-center justify-between px-4">
+            <h2 className="text-2xl font-bold tracking-tight text-white">
+              Featured Work
+            </h2>
             <Link
               href="/projects"
-              className="inline-flex items-center gap-2 text-sm font-bold text-primary"
+              className="text-sm font-medium text-primary hover:underline"
             >
-              View All Projects <span aria-hidden>→</span>
+              View All
+            </Link>
+          </div>
+          <div className="mx-auto grid max-w-2xl grid-cols-1 gap-4 px-4">
+            {featured.map((project) => (
+              <ProjectCard key={project.slug} project={project} />
+            ))}
+          </div>
+        </section>
+      )}
+
+      <section className="py-12">
+        <div className="mx-auto max-w-2xl px-4">
+          <div className="rounded-2xl border-2 border-primary/50 bg-surface-dark p-8 text-center">
+            <h2 className="mb-3 text-2xl font-bold text-white">
+              Ready to start your project?
+            </h2>
+            <p className="mb-6 text-slate-400">
+              Let's discuss how I can help bring your digital vision to life.
+            </p>
+            <Link
+              href="/contact"
+              className="glow-button inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 font-bold text-white transition-all active:scale-95"
+            >
+              Get in Touch
             </Link>
           </div>
         </div>
       </section>
-
-      <section className="py-14">
-        <div className="mx-auto max-w-2xl px-4">
-          <div className="rounded-3xl border border-border-dark/50 bg-surface-dark p-8 shadow-2xl">
-            <h2 className="text-2xl font-bold tracking-tight text-white">
-              Looking for a web developer with strong creative design skills?
-              <br />
-              Let’s work together.
-            </h2>
-            <div className="mt-6">
-              <Link
-                href="/contact"
-                className="glow-button inline-flex items-center justify-center rounded-full bg-primary px-6 py-4 font-bold text-white"
-              >
-                Contact Me
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
+      </div>
+    </>
   );
 }
-

@@ -17,9 +17,50 @@ export async function generateMetadata({
   const { slug } = await params;
   const project = getProject(slug);
   if (!project) return {};
+
+  const techStack = project.techStack?.join(", ") || project.toolsUsed?.join(", ") || project.tags.join(", ");
+  const categoryLabel = project.category === "web" ? "Web Development" : project.category === "ui" ? "UI Design" : "Creative Design";
+
   return {
-    title: `${project.title} — ${project.subtitle}`,
-    description: project.overview,
+    title: `${project.title} — ${project.subtitle} | Batista Simons Portfolio`,
+    description: `${project.overview} Built with ${techStack}. ${categoryLabel} project by Batista Simons, a web developer and creative designer in Ghana.`,
+    keywords: [
+      project.title,
+      project.subtitle,
+      categoryLabel.toLowerCase(),
+      ...project.tags,
+      ...(project.techStack || []),
+      ...(project.toolsUsed || []),
+      "Batista Simons",
+      "web developer Ghana",
+      "project portfolio Ghana",
+    ],
+    openGraph: {
+      title: `${project.title} — ${project.subtitle}`,
+      description: project.overview,
+      type: "website",
+      images: project.imageUrls && project.imageUrls.length > 0
+        ? project.imageUrls.map((url) => ({
+            url,
+            width: 1200,
+            height: 630,
+            alt: `${project.title} - ${project.subtitle}`,
+          }))
+        : [
+            {
+              url: project.imageUrl,
+              width: 1200,
+              height: 630,
+              alt: `${project.title} - ${project.subtitle}`,
+            },
+          ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${project.title} — ${project.subtitle}`,
+      description: project.overview,
+      images: [project.imageUrls?.[0] || project.imageUrl],
+    },
   };
 }
 
@@ -35,8 +76,32 @@ export default async function ProjectDetailPage({
   const stack = project.techStack ?? project.toolsUsed ?? project.tags ?? [];
   const caseStudy = project.caseStudy;
 
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    name: project.title,
+    description: project.overview,
+    creator: {
+      "@type": "Person",
+      name: "Batista Simons",
+      jobTitle: "Web Developer & Creative Designer",
+    },
+    keywords: project.tags.join(", "),
+    ...(project.websiteUrl && {
+      url: project.websiteUrl,
+    }),
+    ...(project.imageUrl && {
+      image: project.imageUrl,
+    }),
+  };
+
   return (
-    <div className="min-h-screen bg-background-dark pb-40">
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+      <div className="min-h-screen bg-background-dark pb-40">
       <nav className="glass-effect sticky top-0 z-40 flex items-center justify-between border-b border-white/5 px-4 py-4">
         <div className="flex items-center gap-3">
           <Link
@@ -252,7 +317,8 @@ export default async function ProjectDetailPage({
           </Link>
         </div>
       </main>
-    </div>
+      </div>
+    </>
   );
 }
 

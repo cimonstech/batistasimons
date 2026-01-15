@@ -14,11 +14,66 @@ const fontDisplay = Space_Grotesk({
 
 export const metadata: Metadata = {
   title: {
-    default: "Batista Simons | Web Developer & Creative Designer",
+    default: "Batista Simons | Web Developer & Creative Designer in Ghana",
     template: "%s | Batista Simons",
   },
   description:
-    "Web Developer & Creative Designer specializing in WordPress, PHP, WooCommerce, and modern visual design.",
+    "Batista Simons is a web developer and creative designer in Ghana, building modern websites, e-commerce platforms, and digital solutions for businesses and organizations. Specializing in WordPress, PHP, JavaScript, React.js, MySQL, WooCommerce, and modern visual design with Figma, Photoshop, and Illustrator.",
+  keywords: [
+    "Batista Simons",
+    "web developer Ghana",
+    "creative designer Ghana",
+    "website developer Accra",
+    "WordPress developer Ghana",
+    "frontend developer Ghana",
+    "backend developer Ghana",
+    "software developer Ghana",
+    "e-commerce developer Ghana",
+    "React.js developer Ghana",
+    "Next.js developer Ghana",
+    "PHP developer Ghana",
+    "UI/UX designer Ghana",
+    "Figma designer Ghana",
+  ],
+  authors: [{ name: "Batista Simons" }],
+  creator: "Batista Simons",
+  publisher: "Batista Simons",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://batistasimons.com"),
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: process.env.NEXT_PUBLIC_SITE_URL || "https://batistasimons.com",
+    siteName: "Batista Simons Portfolio",
+    title: "Batista Simons | Web Developer & Creative Designer in Ghana",
+    description:
+      "Web developer and creative designer in Ghana, building modern websites, e-commerce platforms, and digital solutions for businesses and organizations.",
+    images: [
+      {
+        url: "/batista.simons.logo.white.webp",
+        width: 1200,
+        height: 630,
+        alt: "Batista Simons - Web Developer & Creative Designer",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Batista Simons | Web Developer & Creative Designer in Ghana",
+    description:
+      "Web developer and creative designer in Ghana, building modern websites, e-commerce platforms, and digital solutions.",
+    images: ["/batista.simons.logo.white.webp"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   icons: {
     icon: [
       { url: "/batista.simons.logo.white.webp", type: "image/webp" },
