@@ -70,14 +70,14 @@ export default function ResultsPage() {
       securityDetails: typeof data.securityDetails === "string" ? data.securityDetails : undefined,
       nextStep: typeof data.nextStep === "string" ? data.nextStep : String(data.nextStep || ""),
       benefits: Array.isArray(data.benefits) 
-        ? data.benefits.map(b => typeof b === "string" ? b : String(b))
+        ? data.benefits.map((b: any) => typeof b === "string" ? b : String(b))
         : typeof data.benefits === "object" && data.benefits !== null
-          ? Object.values(data.benefits).map(v => String(v))
+          ? Object.values(data.benefits).map((v: any) => String(v))
           : undefined,
       considerations: Array.isArray(data.considerations)
-        ? data.considerations.map(c => typeof c === "string" ? c : String(c))
+        ? data.considerations.map((c: any) => typeof c === "string" ? c : String(c))
         : typeof data.considerations === "object" && data.considerations !== null
-          ? Object.values(data.considerations).map(v => String(v))
+          ? Object.values(data.considerations).map((v: any) => String(v))
           : undefined,
     };
   };
