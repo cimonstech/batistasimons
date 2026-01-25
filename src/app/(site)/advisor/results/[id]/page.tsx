@@ -19,13 +19,20 @@ import {
 
 interface ResultsData {
   websiteType: string;
+  websiteTypeDescription?: string;
   techStack: string[];
+  techStackDetails?: string;
   whyThisWorks: string;
   timeline: string;
+  timelineBreakdown?: string;
   hosting: string;
+  hostingDetails?: string;
   bandwidth: string;
   security: string;
+  securityDetails?: string;
   nextStep: string;
+  benefits?: string[];
+  considerations?: string[];
 }
 
 const COLORS = ["#3377ff", "#00d2ff", "#8a9baa", "#2e4d6b"];
@@ -42,17 +49,58 @@ export default function ResultsPage() {
   const [emailSent, setEmailSent] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  // Normalize data to ensure correct types
+  const normalizeResults = (data: any): ResultsData => {
+    return {
+      websiteType: typeof data.websiteType === "string" ? data.websiteType : String(data.websiteType || ""),
+      websiteTypeDescription: typeof data.websiteTypeDescription === "string" ? data.websiteTypeDescription : undefined,
+      techStack: Array.isArray(data.techStack) ? data.techStack : [],
+      techStackDetails: typeof data.techStackDetails === "string" ? data.techStackDetails : undefined,
+      whyThisWorks: typeof data.whyThisWorks === "string" ? data.whyThisWorks : String(data.whyThisWorks || ""),
+      timeline: typeof data.timeline === "string" ? data.timeline : String(data.timeline || ""),
+      timelineBreakdown: typeof data.timelineBreakdown === "string" 
+        ? data.timelineBreakdown 
+        : typeof data.timelineBreakdown === "object" && data.timelineBreakdown !== null
+          ? Object.entries(data.timelineBreakdown).map(([key, value]) => `${key}: ${value}`).join("\n")
+          : undefined,
+      hosting: typeof data.hosting === "string" ? data.hosting : String(data.hosting || ""),
+      hostingDetails: typeof data.hostingDetails === "string" ? data.hostingDetails : undefined,
+      bandwidth: typeof data.bandwidth === "string" ? data.bandwidth : String(data.bandwidth || ""),
+      security: typeof data.security === "string" ? data.security : String(data.security || ""),
+      securityDetails: typeof data.securityDetails === "string" ? data.securityDetails : undefined,
+      nextStep: typeof data.nextStep === "string" ? data.nextStep : String(data.nextStep || ""),
+      benefits: Array.isArray(data.benefits) 
+        ? data.benefits.map(b => typeof b === "string" ? b : String(b))
+        : typeof data.benefits === "object" && data.benefits !== null
+          ? Object.values(data.benefits).map(v => String(v))
+          : undefined,
+      considerations: Array.isArray(data.considerations)
+        ? data.considerations.map(c => typeof c === "string" ? c : String(c))
+        : typeof data.considerations === "object" && data.considerations !== null
+          ? Object.values(data.considerations).map(v => String(v))
+          : undefined,
+    };
+  };
+
   useEffect(() => {
     // Retrieve results from localStorage
     const storedResults = localStorage.getItem(`advisor_results_${id}`);
     if (storedResults) {
-      setResults(JSON.parse(storedResults));
-      setLoading(false);
-      // Check if email was already sent
-      const emailSentFlag = localStorage.getItem(`advisor_email_sent_${id}`);
-      if (emailSentFlag === "true") {
-        setShowEmailForm(false);
-        setEmailSent(true);
+      try {
+        const parsed = JSON.parse(storedResults);
+        const normalized = normalizeResults(parsed);
+        setResults(normalized);
+        setLoading(false);
+        // Check if email was already sent
+        const emailSentFlag = localStorage.getItem(`advisor_email_sent_${id}`);
+        if (emailSentFlag === "true") {
+          setShowEmailForm(false);
+          setEmailSent(true);
+        }
+      } catch (err) {
+        console.error("Error parsing results:", err);
+        setError("Failed to load results. Please start over.");
+        setLoading(false);
       }
     } else {
       setError("Results not found. Please start over.");
@@ -247,7 +295,10 @@ export default function ResultsPage() {
             <span className="material-symbols-outlined text-2xl">lightbulb</span>
             <h2 className="text-xl font-bold">Recommended Website Type</h2>
           </div>
-          <p className="text-lg text-white">{results.websiteType}</p>
+          <p className="mb-3 text-lg font-semibold text-white">{results.websiteType}</p>
+          {results.websiteTypeDescription && (
+            <p className="text-slate-300 leading-relaxed">{results.websiteTypeDescription}</p>
+          )}
         </div>
 
         <div className="rounded-2xl border border-white/5 bg-card-dark p-6 shadow-xl">
@@ -285,16 +336,24 @@ export default function ResultsPage() {
             {results.techStack.map((tech, idx) => (
               <div key={idx} className="flex gap-2">
                 <span className="mt-0.5 text-primary">•</span>
-                <span>{tech}</span>
+                <span className="font-medium">{tech}</span>
               </div>
             ))}
           </div>
-          {results.whyThisWorks && (
+          {results.techStackDetails && (
             <div className="mt-4 rounded-lg bg-white/5 p-4">
               <p className="mb-2 text-sm font-medium text-primary">
-                Why this works:
+                What these technologies do:
               </p>
-              <p className="text-sm text-slate-300">{results.whyThisWorks}</p>
+              <p className="text-sm leading-relaxed text-slate-300">{results.techStackDetails}</p>
+            </div>
+          )}
+          {results.whyThisWorks && (
+            <div className="mt-4 rounded-lg bg-primary/10 border border-primary/20 p-4">
+              <p className="mb-2 text-sm font-semibold text-primary">
+                Why this works for your project:
+              </p>
+              <p className="text-sm leading-relaxed text-slate-300">{results.whyThisWorks}</p>
             </div>
           )}
         </div>
@@ -304,7 +363,12 @@ export default function ResultsPage() {
             <span className="material-symbols-outlined text-2xl">schedule</span>
             <h2 className="text-xl font-bold">Estimated Timeline</h2>
           </div>
-          <p className="mb-6 text-lg text-white">{results.timeline}</p>
+          <p className="mb-4 text-lg font-semibold text-white">{results.timeline}</p>
+          {results.timelineBreakdown && (
+            <div className="mb-6 rounded-lg bg-white/5 p-4">
+              <p className="text-sm leading-relaxed text-slate-300 whitespace-pre-line">{results.timelineBreakdown}</p>
+            </div>
+          )}
           <ResponsiveContainer width="100%" height={200}>
             <BarChart data={timelineData}>
               <CartesianGrid strokeDasharray="3 3" stroke="#2e4d6b" />
@@ -327,11 +391,16 @@ export default function ResultsPage() {
             <span className="material-symbols-outlined text-2xl">storage</span>
             <h2 className="text-xl font-bold">Hosting Recommendation</h2>
           </div>
-          <p className="text-slate-300">{results.hosting}</p>
+          <p className="mb-3 font-medium text-white">{results.hosting}</p>
+          {results.hostingDetails && (
+            <p className="mb-3 text-sm leading-relaxed text-slate-300">{results.hostingDetails}</p>
+          )}
           {results.bandwidth && (
-            <p className="mt-2 text-sm text-slate-400">
-              <strong>Bandwidth Needs:</strong> {results.bandwidth}
-            </p>
+            <div className="mt-4 rounded-lg bg-white/5 p-3">
+              <p className="text-sm text-slate-300">
+                <strong className="text-primary">Bandwidth Needs:</strong> <span className="text-slate-300">{results.bandwidth}</span>
+              </p>
+            </div>
           )}
         </div>
 
@@ -340,8 +409,49 @@ export default function ResultsPage() {
             <span className="material-symbols-outlined text-2xl">security</span>
             <h2 className="text-xl font-bold">SSL & Security</h2>
           </div>
-          <p className="text-slate-300">{results.security}</p>
+          <p className="mb-3 font-medium text-white">{results.security}</p>
+          {results.securityDetails && (
+            <p className="text-sm leading-relaxed text-slate-300">{results.securityDetails}</p>
+          )}
         </div>
+
+        {results.benefits && results.benefits.length > 0 && (
+          <div className="rounded-2xl border border-white/5 bg-card-dark p-6 shadow-xl">
+            <div className="mb-4 flex items-center gap-2 text-primary">
+              <span className="material-symbols-outlined text-2xl">check_circle</span>
+              <h2 className="text-xl font-bold">Key Benefits</h2>
+            </div>
+            <ul className="space-y-3">
+              {results.benefits.map((benefit, idx) => (
+                <li key={idx} className="flex gap-3">
+                  <span className="mt-1 shrink-0 text-primary">
+                    <span className="material-symbols-outlined text-lg">done</span>
+                  </span>
+                  <span className="text-slate-300 leading-relaxed">{benefit}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {results.considerations && results.considerations.length > 0 && (
+          <div className="rounded-2xl border border-white/5 bg-card-dark p-6 shadow-xl">
+            <div className="mb-4 flex items-center gap-2 text-primary">
+              <span className="material-symbols-outlined text-2xl">info</span>
+              <h2 className="text-xl font-bold">Things to Consider</h2>
+            </div>
+            <ul className="space-y-3">
+              {results.considerations.map((consideration, idx) => (
+                <li key={idx} className="flex gap-3">
+                  <span className="mt-1 shrink-0 text-primary">
+                    <span className="material-symbols-outlined text-lg">lightbulb</span>
+                  </span>
+                  <span className="text-slate-300 leading-relaxed">{consideration}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
 
         <div className="rounded-2xl border border-primary/50 bg-surface-dark p-6">
           <div className="mb-4 flex items-center gap-2 text-primary">

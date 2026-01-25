@@ -37,7 +37,30 @@ export async function POST(request: NextRequest) {
     }
 
     // Get email configuration from environment variables
-    const fromEmail = process.env.CONTACT_FROM_EMAIL || process.env.ADVISOR_FROM_EMAIL || "Portfolio Contact <onboarding@resend.dev>";
+    // Resend requires verified domains - use their default domain to avoid verification issues
+    // Always use onboarding@resend.dev unless domain is verified
+    let fromEmail = "onboarding@resend.dev";
+    
+    // Only use custom email if domain is verified (you can enable this after verification)
+    const customFromEmail = process.env.CONTACT_FROM_EMAIL || process.env.ADVISOR_FROM_EMAIL;
+    if (customFromEmail) {
+      // Extract email address if it's in "Name <email>" format
+      let extractedEmail = customFromEmail;
+      if (customFromEmail.includes("<") && customFromEmail.includes(">")) {
+        const match = customFromEmail.match(/<(.+)>/);
+        if (match) {
+          extractedEmail = match[1].trim();
+        }
+      }
+      
+      // Only use if it's from resend.dev domain (verified)
+      if (extractedEmail.endsWith("@resend.dev")) {
+        fromEmail = extractedEmail;
+      } else {
+        console.warn("Custom domain not verified, using Resend default. Verify domain at https://resend.com/domains");
+      }
+    }
+    
     const adminEmail = process.env.CONTACT_ADMIN_EMAIL || "batista.simons1@gmail.com";
 
     // Email to admin (Batista)
